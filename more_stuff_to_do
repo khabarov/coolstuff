@@ -1,0 +1,24 @@
+parent = {}
+visited = {}
+
+LowestCommonAncestor
+Select(i) — find the i'th smallest element stored in the tree
+Rank(x) – find the rank of element x in the tree, i.e. its index in the sorted list of elements of the tree
+
+permutations + 3sum
+
+1.BFS to discover all parents and find the nodes
+2.populate and search visited until found
+
+Topological Sort
+
+ 2
+1 3
+   5
+
+
+
+152
+
+12
+532
