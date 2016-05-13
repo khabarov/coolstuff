@@ -1,0 +1,56 @@
+binary_search(list,n):
+      if len(list)==0:
+         return 'not found'
+      if len(list)==1 and list[0] == n:
+            return 'found'
+         else: 
+            return 'not found'
+      pos = len(list)/2
+      if list[pos] == n:
+         return 'found'
+      elif n < list[pos]:
+         return binary_search(list[0:pos])
+      else:
+         return binary_search(list[pos:]) 
+
+
+sort letters in a document 
+
+x+y=5
+x=5-y
+
+abcdefg
+ bcdefg
+  cdefg
+   defg
+    
+0 1 2 3
+0:len(l
+j=0
+while j<len(string):
+      i = len(string)
+      while i<len(string):
+         subtring = string[j:i]
+         if reverse(subtring) == substring:
+            if len(substring) > max_pal:
+               max_pal = substring
+         i-=1
+      j+=1
+    
+          
+a->b->c->d->e->None
+
+None<-b<-a<-c<-d<-e
+
+reverse(head):
+      prev = None
+      cur = head
+      nxt = head.next
+      while (nxt not None):
+            nxt.next = cur
+
+
+shorest palindrome in a string
+longest palindrome
+
+
