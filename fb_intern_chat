@@ -1,0 +1,72 @@
+Please don't share passwords or personal information.
+15/05/2016, 20:42:47
+googler352 : Hey
+oohyeahyeahh : yo
+googler352 : I have an intern interview at fb coming up
+googler352 : Studying like crazy
+googler352 : What can I expect ?
+googler352 : I picked the infrastructure team
+oohyeahyeahh : tbh, it's DS & algs like all the big 4
+oohyeahyeahh : i can tell u the quesions i got if you want
+googler352 : yes
+googler352 : please
+oohyeahyeahh : some of these are actually on glassdoor, pretty surprising
+oohyeahyeahh : 1. Given an array of integers, return all triples that sum to 5.
+oohyeahyeahh : 2. Given a binary tree, write an inorder iterator.
+oohyeahyeahh : 3. Given a string of digits, return the run-length encoding.
+googler352 : just 3 questions ?
+googler352 : you had 2 interviews ?
+googler352 : are you still there ?
+oohyeahyeahh : sorry, was awk
+oohyeahyeahh : was afk*
+oohyeahyeahh : i had 2 interviews, 2 questions per interview
+oohyeahyeahh : heres the last one
+oohyeahyeahh : 4. On phone keypads, each number maps to a set of letters {1->a,b,c; 2-> d,e,f, ...}. Given a string of numbers, return all the possible translations to letters.
+oohyeahyeahh : lmk if u need clarification on any of them
+googler352 : how did you solve the last one ?
+oohyeahyeahh : yeah
+oohyeahyeahh : so
+oohyeahyeahh : let me look back at my code
+oohyeahyeahh : its recursive. base case is when the string is empty. recursive case is recurse on string[1:] and prepend the possibilities for string[0]
+oohyeahyeahh : btw is your fb intern interview for the fall? i think summer is already closed
+googler352 : yes
+googler352 : fall
+googler352 : how much time between 2 interviews and the last interview and the offer ?
+oohyeahyeahh : first interview was by phone. second interview was on site 2 weeks later. offer was 1 week later
+googler352 : they flew you to their office ? My recruiter said intern only had phone interviews.
+oohyeahyeahh : no, i'm local (~50 mi away)
+googler352 : menlo park ?
+oohyeahyeahh : but i have heard of people being flown in for intern interviews
+oohyeahyeahh : yes
+googler352 : what other questions did they ask you ? behaviour etc.
+oohyeahyeahh : thats it. it was just technical questions
+googler352 : no questions about your resume or anything like that ?
+oohyeahyeahh : nope
+googler352 : How quickly did you solve these problems ? I've heard they look for quick coders
+oohyeahyeahh : i'd rank them from easiest to most difficult: 3, 1, 4, 2. i didn't finish the last one, but i did have the idea down
+googler352 : for 1. we do x+y=5-z, and then check what 2 numbers add to 5-z ?
+oohyeahyeahh : right
+googler352 : 2. is just inorder traversal ?
+oohyeahyeahh : yeah, but my interviewer gave me the constraint that it has to be on-the-fly (you can't precompute the inorder traversal and store it)
+oohyeahyeahh : so it has to be an *iterative* inorder traversal
+googler352 : so, you have a stream of numbers ?
+oohyeahyeahh : the input is a tree
+googler352 : why did you put * around iterative ?
+oohyeahyeahh : because typically when people do a tree traversal, they do it recursively
+oohyeahyeahh : in this problem, recursive doesn't work
+googler352 : so, just iterative inorder traversal of the tree ?
+oohyeahyeahh : right
+googler352 : did they offer you return intern/full time offer ? or you're still doing your internship ?
+oohyeahyeahh : i start in 2 weeks. really hope i get a return offer lol
+googler352 : what team ? products or infra ?
+oohyeahyeahh : infra
+oohyeahyeahh : platform team
+googler352 : what language did you code in in the interview ?
+oohyeahyeahh : python
+googler352 : so, just these 4 qs and that's it ?
+oohyeahyeahh : yeah
+googler352 : ohh, how did you study for the interview ?
+oohyeahyeahh : a lot of practice problemsCtCI, glassdoor page for FB, careercup page for FB
+googler352 : for the interative inorder, don't you still need to store it in a stack ?
+oohyeahyeahh : yep.
+googler352 : how often are you on twitch ?
