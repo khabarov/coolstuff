@@ -1,0 +1,83 @@
+DFS:
+   Trees:
+        preorder(tree):
+	    if (tree == None):return
+            print(tree.key)
+            preorder(tree.left)
+            preorder(tree.right)
+        inorder(tree):
+            if (tree == None):return
+            inorder(tree.left)
+            print(tree.key)
+            inorder(tree.right)
+        postorder(tree):
+            if (tree == None):return
+            postorder(tree.left)
+            postorder(tree.right)
+            print(tree.key)    
+   Graphs:
+         parent = {}
+         finished = []
+         dfs_visit(s,adj):
+            for u in adj[v]:
+                if u not in parent:
+		   parent[v] = u                 
+                   dfs_visit(u,adj)
+            return finished.append[v]
+   
+         dfs(V,adj):
+                 for v in V:
+                      if len(parent) == 0:
+                         parent = {v:None}
+                      finished = dfs_visit(v,adj)
+                      print finished.reverse()
+
+
+
+
+
+
+BFS:
+   Trees:
+	traverse(tree):
+           if tree==None: return
+           q = Queue()
+           q.enqeue(tree)
+           while (not q.isEmpty()):
+              node = q.dequeue()
+              print(node.key)
+              if (node.left not None):
+                 q.enqeue(node.left)
+              if (node.right not None):
+                 q.enqeue(node.right)
+   Graphs: #shortest paths
+	 #s = starting vertes
+         #adj = adj list (hashtable)
+         traverse(s,adj):
+             parent={s:None} 
+             level={s:0}
+             l = 1
+             frontier = [s]
+             while len(frontier)>0:
+                   next = []
+                   for u in frontier:
+                       for v in u:
+                           if v not in level: # if v has not been visited yet
+                                level[v] = l
+                                parent[v] = u
+                                next.append(v)
+                   frontier = next
+                   l+=1
+		
+
+
+           
+Iterative+recursive in/pre/post order traversal
+rank+select
+successor/predecessor 
+Lowest Common Ancestor(with/without parent pointers)
+Check if a tree is a BST
+
+Depth vs Height
+
+Balanced BSTs (AVL)

@@ -1,0 +1,89 @@
+def triples(list):
+    if len(list) == 0 or len(len)<3: return None
+    #x+y+z=5
+    #x+y=5-z
+    #x+y=0
+    #x=-y
+    result = {}
+    for i in list:
+        result[5-i]=[i]
+ 
+    j = 0
+    k = 0
+    while j<len(list):
+          while k<len(list):
+             if list[j]+list[k] in result and j is not k:
+                result[list[j]+list[k]].append((result[list[j]+list[k]][0],j,k))
+             k+=1
+          j+=1
+          k=j
+    return result
+ 
+ 
+def encode(digits):
+    if len(digits)==0: return None
+    previous = digits[0]
+    count = 0
+    encoding = ''
+    i = 0
+    while i<len(digits):
+        if digits[i]==previous:
+           count+=1
+        else:
+           encoding += count+previous
+           count=1
+           previous = digits[i]
+        if i==len(digits)-1:
+           encoding += count+previous
+    return encoding
+
+def keypad_translate(numbers):
+    if len(numbers) == 0: return None
+    keypad={2:('a','b','c'),3:('d','e','f'),4:('g','h','i'),5:('j','k','l'),6:('m','n','o'),7:('p','q','r','s'),8:('t','u','v'),9:('w','x','y','z')}
+    translations = ['a','b','c']
+    for n in numbers: 			
+        letters = keypad.get(n,'')    
+        new = []
+        for l in xrange(len(letters)):  
+            for t in xrange(len(translations)):
+                new.append(translations[t]+letters[l]) 
+        translations = new
+    return translations
+
+             
+        
+      
+    
+
+digit_map = {
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz',
+}
+
+def word_numbers(input):
+  input = str(input)
+  ret = ['']
+  for char in input:
+    letters = digit_map.get(char, '')
+    for prefix in ret:
+        for letter in letters:
+            prefix+letter 
+            a       d
+                    e
+                    f
+  return ret
+        
+
+
+
+
+
+
+
+
