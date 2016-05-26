@@ -1,0 +1,668 @@
+**************************************
+*****************TREES****************
+**************************************
+class Node:
+    def __init__(self, key):
+	self.key = key 
+	self.left = None
+	self.right = None
+	
+DEPTH FIRST SEARCH:
+
+       PREORDER:
+ 
+       def preorder(tree):
+	    if (tree == None): return []
+            path = [tree.key]
+            path += preorder(tree.left)
+            path += preorder(tree.right)
+            return path
+
+        4 2 1 3 6 5 7
+        
+       '''
+       Empty stack, push tree to stack
+       While stack is not empty:
+       ->Pop an item from the stack and print it
+       ->Push right child of popped item to stack ***
+       ->Push left child of popped item to stack
+         
+
+      ***Right child is pushed before left to make
+         sure that left subtree is visited/processed first
+       '''
+       def preorder(tree):
+           if (tree == None): return
+           s = []
+           s.append(tree)
+           while (len(s)>0):
+                  tree = s.pop()
+                  print tree.key
+                  if (tree.right is not None):
+                     s.append(tree.right)
+                  if (tree.left is not None):
+	             s.append(tree.left)           
+
+      INORDER:
+
+      '''
+      Empty stack
+      While stack is not empty or node is not None
+      -> If current node is not empty, append node, go left
+      -> If currect node is empty, pop, print, go right
+      '''
+
+       def inorder(tree):
+            if (tree == None):return []
+            path = inorder(tree.left)
+            path += [tree.key]
+            path += inorder(tree.right)
+            return path
+
+        def inorder(tree):
+            if (tree == None):return []
+            s = []
+            while (len(s)>0 or tree is not None):
+                   if (tree is not None):
+                      s.append(tree)
+                      tree = tree.left
+                   else:
+                      tree = s.pop()
+                      print tree.key
+                      tree = tree.right
+        1 2 3 4 5 6 7
+
+       POSTORDER:
+
+       def postorder(tree):
+            if (tree == None): return []
+            path = postorder(tree.left)
+            path += postorder(tree.right)
+            path += [tree.key]
+            return path             
+            
+        1 3 2 5 7 6 4
+        iterative:
+
+BREADTH FIRST SEARCH:
+
+	traverse(tree):
+           if tree==None: return
+           q = Queue()
+           q.enqeue(tree)
+           while (not q.isEmpty()):
+              node = q.dequeue()
+              print(node.key)
+              if (node.left not None):
+                 q.enqeue(node.left)
+              if (node.right not None):
+                 q.enqeue(node.right)
+
+BST SUCCESSOR:
+
+successor(node):
+      if node==None: return None
+      if node.right not None:
+         return min_node(node.right)
+      else:
+         while(node.parent not None and node.parent.right == node):
+              node = node.parent
+         if node.parent == None:
+            return None
+         else:
+            return node
+
+BST PREDECESSOR:
+
+predecessor(node):
+      if node==None: return None
+      if node.left not None:
+         return max_node(node.left)
+      else:
+         while(node.parent not None and node.parent.left == node):
+              node = node.parent
+         if node.parent == None:
+            return None
+         else:
+            return node
+
+LOWEST COMMON ANCESTOR:
+
+WITH PARENT POINTERS:
+
+lca(n1,n2):
+    if n1 == None or n2 == None: return None
+    visited = {}
+    while n1.parent not None or n2.parent not None:
+          if n1.parent not None:
+             if n1.parent.key in visited:
+                return n1.parent.key
+             else:
+                visited[n1.parent.key] = True
+                n1 = n1.parent
+          if n2.parent not None:
+            if n2.parent.key in visited:
+               return n2.parent.key
+            else:
+               visited[n2.parent.key] = True
+               n2 = n2.parent
+    return None
+
+WITHOUT PARENT POINTERS:
+
+lca(root, n1,n2):
+    if root==None: return None
+    if (n1==root or n2==root):
+        return root
+    l = lca(root.left,n1,n2)
+    if (l not None and l not n1 and l not n2):
+        return l
+    r = lca(root.right,n1,n2)
+    if (r not None and r not n1 and r not n2):
+         return r
+
+    if ((l == n1 or l==n2) and r==None) or 
+         ((r==n1 or r==n2) and l==None) or (l==None and r==None):
+      return None # or "Node(s) not in the tree"
+
+    if (l and r):
+        return root
+    if l: 
+       return l
+    else: 
+       return r  
+
+CHECK BALANCE:
+
+check_balanced(tree):
+  if tree==None: return -1
+  lheight = check_balanced(tree.left)
+  if abs(lheight)<=1: return lheight 
+  rheight = check_balanced(tree.right)
+  if abs(lheight)<=1: return rheight
+  return rheight-lheight
+
+balanced(tree):
+   b = check_balanced(tree)
+   if abs<=1:
+      return "balanced"
+   else:
+      return "not balanced"
+
+IS BST CHECK:
+
+import sys
+is_bst(tree,min,max):
+    if tree==None:return true
+    if (tree.left.key>max or tree.right.key<min):
+       return False
+    l = is_bst(tree.left,min,node.key-1)
+    if l == False: return false
+    r = is_bst(tree.right,node.key+1,max)
+    if r == False: return false
+    return True
+
+is_tree_bst(tree):
+   min = -sys.maxint
+   max = sys.maxint
+   return is_bst(tree,min,max)
+
+MIN/MAX NODE:
+
+min_node(tree):
+      if tree.left == None: return tree.key
+      return min_node(tree.left)
+
+max_node(tree):
+      if tree.right == None: return tree.key
+      return max_node(tree.right)
+
+
+BUILD BST FROM SORTED LIST:
+
+class Node():
+      def __init__ (self,key=None):
+          self.key=key
+          self.left=None
+          self.right=None
+
+def build_bst(list):
+     if len(list)==0: return "List is empty"
+     if len(list)==1: return Node(list[0]) # Base case !!
+     nodeIndex = len(list)/2
+     root = Node(list[nodeIndex])
+     if len(list) == 2:
+     	left = build_bst(list[0:nodeIndex])
+     	right = None
+     else:
+     	left = build_bst(list[0:nodeIndex])
+     	right = build_bst(list[nodeIndex+1:])
+     root.left = left
+     root.right = right
+     return root
+
+
+FIND CLOSEST KEY IN BST:
+
+def find(tree,key):
+    if tree == None: return 
+    if tree.key == key: return key
+    if key<tree.key:
+       if tree.left == None: return tree.key
+       return find(tree.left,key)
+    if key>tree.key:
+       if tree.right == None: return tree.key
+       return find(tree.right,key)
+
+
+TREE SIZE (# OF NODES):
+
+size(tree):
+     if tree==None: return 0
+     l = size(tree.left)
+     r = size(tree.right)
+     tree.size = l+r+1
+     return tree.size
+
+TREE HEIGHT:
+
+def height(node):
+    if node is None:
+        return -1
+    else :
+        # Compute the height of each subtree 
+        lheight = height(node.left)
+        rheight = height(node.right)
+        return max(lheight,rheight)+1
+
+
+**************************************
+*****************GRAPHS***************
+**************************************
+#Graph
+Edges and vertices
+An ADT that is used to model relationships between objects
+Directed(as ordered pairs) and undirected(as unordered pairs)
+Weigheted(edges have weights), unweights(no edge weights)
+Connected(strongly)(can visit all vertices from all other vertices), disconnected(some vertices are unreachable from some vertices)
+
+3 basic ways to represent a graph in memory:
+Objects and pointers
+|V+E| space
+adjacency matrix
+|V^2| space, O(1) to check for an edge
+and adjacency list (hashtable really)
+|V+E| space, O(length of list) to check for an edge
+
+DEPTH FIRST SEARCH + TOPO SORT
+#Runs in O(|V|+|E|) time
+
+parents = {}
+def dfs_visit(s,adj,finished)
+    '''Visit adjacent vertices of each vertex'''
+    for u in adj[v]:
+        if v not in parents:
+            parents[u]=v
+            dfs_visit(v,adj)
+    return finished.append(v)
+
+def dfs(s,adj,finished)
+    '''Depth first search: assume connected graph'''
+    parents[s]=None
+    return dfs_visit(s,adj,finished)
+
+         dfs(V,adj):
+                 for v in V:
+                      if len(parent) == 0:
+                         parent = {v:None}
+                      finished = dfs_visit(v,adj)
+                      print finished.reverse()
+
+BREADTH FIRST SEARCH:
+#Runs in O(|V|+|E|) time
+
+   Graphs: 
+	 #s = starting vertes
+         #adj = adj list (hashtable)
+         traverse(s,adj):
+             parent={s:None} 
+             level={s:0}
+             l = 1
+             frontier = [s]
+             while len(frontier)>0:
+                   next = []
+                   for u in frontier:
+                       for v in u:
+                           if v not in level: # if v has not been visited yet
+                                level[v] = l
+                                parent[v] = u
+                                next.append(v)
+                   frontier = next
+                   l+=1
+
+    SHORTEST PATH:
+    Going over all vertices and their parent vertices
+    to get all single-source shortest paths from the source to all other vertices
+
+def sssp(parents):
+    sssp = []
+    for p in parents:
+        sp = []
+        sp.append(p)
+        par = parents[p]
+        while par is not None:
+              sp.append(par)
+              par = parents[par]
+        sssp.append(sp)
+     return sssp
+
+     TOPOLOGICAL SORT:
+     The way to determine the order to do things without 
+     violating the dependecies for each task(i.e. task B can only be done before tast A, A->B)
+
+
+***************************************************
+*****************BINARY SEARCH*********************
+***************************************************
+# Works on sorted array
+bsearch(list,item):
+      if len(list) == 0: return 'Not Found'
+      if len(list) == 1 and list[0] == item: return 'Found'
+      if len(list) == 1 and list[0] is not item: return 'Not Found'
+      mid = len(list)/2
+      if item == list[mid]:return 'Found'
+      if item<mid:
+         return bsearch(list[:mid],item)
+      if item>mid:
+         return bsearch(list[mid:],item)
+
+
+
+***************************************************
+*****************SORTING***************************
+***************************************************
+
+
+def merge_sort(A):  
+    n = len(A)		
+    if n<2: 
+        return A
+    mid = n//2     	
+    L = merge_sort(A[:mid])
+    R = merge_sort(A[mid:]) 
+    return merge(L,R) 
+
+def merge(L,R):		
+    i = 0
+    j = 0
+    answer = []
+    while i<len(L) and j<len(R):
+        if L[i]<R[j]:
+            answer.append(L[i])
+            i += 1
+        else:
+            answer.append(R[j])
+            j += 1
+    #at most 1 list is non-empty
+    return answer + L[i:] + R[j:]	
+
+
+
+def quicksort(lst):
+    if len(lst) < 2:
+        return lst
+    else:
+        # Pick pivot to be first element
+        pivot = lst[0]
+
+        # Partition rest of list into two halves
+        smaller, bigger = partition(lst[1:], pivot)
+
+        # Recurse on each partition
+        smaller_sorted = quicksort(smaller)
+        bigger_sorted = quicksort(bigger)
+
+        # Return! Notice the simple combining step
+        return smaller_sorted + [pivot] + bigger_sorted
+
+def partition(lst, pivot):
+    smaller = []
+    bigger = []
+
+    for item in lst:
+        if item <= pivot:
+            smaller.append(item)
+        else:
+            bigger.append(item)
+
+    return smaller, bigger
+
+*******************************************************
+*****************PERMS/COMBS***************************
+*******************************************************
+
+def perms(n):
+    if len(n)==0:return 
+    if len(n)==1:return [n]
+    l = [n[-1]]
+    for i in n[:-1]:
+        l=[j[:k]+i+j[k:] for j in l for k in xrange(len(j)+1)]
+    return l
+               
+def combs(n,size):
+    l=[]
+    if size == 1:
+       for j in xrange(len(n)): l.append(str(j))
+       return l
+    for i in combs(n,size-1):
+          for j in xrange(len(n)):
+              if int(i[-1])>j: l.append(i+str(j))
+    return l
+
+s = '1234'
+k = 3
+mycombs = [''.join([s[int(j)] for j in comb]) for comb in combs(s, k)]        
+myperms = [perms(comb) for comb in mycombs]
+
+
+********************************************************
+*****************DYNAMIC PROG***************************
+********************************************************
+#Fibonacci
+#Return Nth fibonacci
+#1 2 3 4 5 6 7  7
+#1 1 2 3 5 8 13 21 ...
+##########
+#Iterative
+def fib1(n):
+    if n==1 or n==2: return 1
+    fb = [1,1,2,3,5]
+    for i in xrange(2,n):
+          fb.append(fb[i-2]+fb[i-1])
+    return fb[-1]
+
+#recursive
+def fib2(n):
+    if n==1 or n==0: 
+       return 1
+    return fib2(n-2)+fib(n-1)
+
+#DP bottom-up (tabulation)
+def fib3(n):
+    fb = [None for i in range(n)]
+    fb[0]=1
+    fb[1]=1
+    for i in xrange(2,n):
+       fb[i]=fb[i-1]+fb[i-2]
+    return fb[n-1]
+     
+#DP top-down (memoization)
+fb = {1:1,2:1}
+def fib3(n):
+    if n not in fb:
+       fb[n] = fib3(n-1)+fib3(n-2)
+    return fb[n]
+
+    
+#Check if two strings have a common substring of length N.
+#Brute force O(n^3) time, O(1) space
+#s1 = "abcddddo"
+#s2 = "jkddddmn"
+#N = 4
+def hasCheated(s1,s2,N)
+    common = 0
+    for i in xrange(len(s1)):
+        for j in xrange(len(s2)):
+            while (s1[i]==s2[j] and i<len(s1) and j<len(s2)):
+                  common+=1
+                  if common==N:return True
+                  i+=1
+                  j+=1
+            common = 0
+    return False
+
+# Dynamic programming 
+# O(n^2) time and O(n^2) space
+def hasCheatedDP(s1,s2,N)
+    #Initialize DP array
+    #len(s1) Rows len(s2) Columns
+    dp = [[0]*len(s2)+1]*len(s1)+1
+    for i in xrange(len(s1)):
+        for j in xrange(len(s2)):
+            if s1[i] == s2[j]:
+               dp[i+1][j+1]=dp[i][j]+1
+            else:
+               dp[i+1][j+1]=max(dp[i][j+1],dp[i+1][j])
+            if dp[i+1][j+1] == N: return True
+    return False
+
+#Find the sub sequence with the largest sum
+#consecutive
+def mssDP(numbers):
+    curr = 0
+    ans = 0
+    for n in numbers:
+        curr = max(n,n+curr)
+        ans =  max(ans,curr)
+    return ans   
+
+#Find the sub sequence with the largest sum
+#non-consecutive
+dp=[0,1,1,6,None,None,None,None]
+ 0 1  2  3 4 5  6 7 8  
+[1,-3,5,-2,9,-8,-6,4]
+def mssDP(numbers):
+    #dp[i] max sum from choosing {n1...ni} numbers
+    dp = [None]*(len(numbers)+1)
+    dp[0] = 0 		#max sum with no numbers
+    dp[1] = numbers[0]  #max sum with 1 number
+    for i in xrange(2,len(numbers)+1):
+        dp[i] = max(dp[i-1],dp[i-2]+numbers[i-1])
+    return dp[-1]
+
+********************************************************
+*****************STRING COMPRESSION*********************
+********************************************************
+
+
+'''
+Implement a method to perform basic string compression using the counts
+of repeated characters. For example, the string aabcccccaaa would become
+a2blc5a3. If the "compressed" string would not become smaller than the orig-
+inal string, your method should return the original string.
+'''
+         
+def encode(digits):
+    if len(digits)==0: return None
+    previous = digits[0]
+    count = 0
+    encoding = ''
+    i = 0
+    while i<len(digits):
+        if digits[i]==previous:
+           count+=1
+        else:
+           encoding += count+previous
+           count=1
+           previous = digits[i]
+        if i==len(digits)-1:
+           encoding += count+previous
+         
+
+********************************************************
+********************SQR ROOT****************************
+********************************************************
+
+bs(n1,n2,n): #12345
+    s=(n1+n2)/2
+    if (s*s==n):
+       return s
+    elif (n-(s*s)<=0.5):
+       return s 
+    elif n<(s*s):
+         bst(n1,s,n)
+    elif n>(s*s):
+         bst(s,n2,n)
+
+def sqrt(n):
+    r = 0
+    c = -1
+    while r<n:
+          c+=1
+          r = c*c
+          if r>n: 
+             return bs(c-1,c,n)
+    return c
+          
+
+********************************************************
+*******************MERGE TWO SORTED LISTS***************
+********************************************************
+
+
+merge(arr1,arr2):
+     if len(arr1)==0 and len(arr2) == 0:
+         return return None
+     if len(arr1)==0: return arr2
+     if len(arr2)==0: return arr1
+     stack = []
+     i = 0
+     j = 0
+     while (i<len(arr1) and j<len(arr2)):
+            if arr1[i][0]<arr[j][0]:
+               stack.append(arr[i])
+               i+=1
+            elif arr1[j][0]<arr[i][0]
+               stack.append(arr[j])
+               j+=1
+            else:
+               stack.append(arr[i])
+               stack.append(arr[j])
+               i+=1
+               j+=1
+     while i<len(arr1): 
+           stack.append(arr1[i])
+           i+=1
+     while j<len(arr2):
+           stack.append(arr2[j])
+           j+=1
+     final = []
+     i=0
+     j=1
+     while i<len(stack) and j<len(stack):
+	     if overlap(stack[i],stack[j]):
+		new = mrg(stack[i],stack[j])
+		stack.pop(i)
+		stack.pop(j)
+		stack.append(new)
+	     else:
+		final.append(stack.pop(i))
+		i+=1
+		j+=1
+     return final
+
+
+
+
+
+
