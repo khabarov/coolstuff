@@ -1,0 +1,14 @@
+import sys
+def SWordDistance(words,word1,word2):
+    '''	Shortest Word Distance 1 '''
+    w1index = None
+    w2index = None
+    shortest = sys.maxint
+    for i,e in enumerate(words):
+        if e==word1: w1index=i
+        if e==word2: w2index=i
+        if w1index is not None and w2index is not None:
+           if abs(w1index-w2index)<shortest:
+              shortest=abs(w1index-w2index)
+           #shortest = min(abs(w1index-w2index),shortest)
+    return shortest
